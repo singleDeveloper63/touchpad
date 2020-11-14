@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TouchPad or something else :-)</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        .table{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            line-height: 0;
+            background-color: #111;
+        }
+        .table span{
+            width: 20px;
+            height: 20px;
+            box-shadow: 0px 0px 0px 1px inset #222;
+            display: inline-block;
+            margin: 0px !important;
+            box-sizing: border-box;
+            border-radius: 100px;
+            transition: 0.5s;
+        }
+
+        .toTop{
+            transform: translateY(-1000px) scale(5);
+            animation: rotate 1s ease infinite;
+        }
+
+        @keyframes rotate{
+            from{
+                transform: rotate(0deg);
+            }
+            50%{
+                transform:  translateY(-100px) scale(0.5);
+                box-shadow: 0 0 200px 15px red , 0px 0px 5px 0px inset red ;
+            }
+            100%{
+                transform: none;
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="table"></div>
+    <audio src="./winning-bells.mp3"></audio>
+    <script>
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        const cols = (width/10).toFixed(0);
+        const rows = (height/10).toFixed(0);
+        const ring = document.querySelector("audio");
+        console.log(cols,rows)
+        for(let i=0;i<rows;i++){
+            for(let j=0;j<cols;j++){
+                const span = document.createElement("span");
+                span.addEventListener("mousemove", e =>{
+                    span.style.boxShadow = `0px 0px 5px ${getRandomColor()} , 0px 0px 10px ${getRandomColor()}`;
+                    ring.currentTime = 1;
+                    setTimeout(()=>{
+                        ring.play();
+                    },500)
+                })
+                span.addEventListener("mouseout" , e =>{
+                    setTimeout(()=>{
+                        span.style.boxShadow = `0px 0px 0px 1px inset #222`
+                    },200);
+                    span.classList.add("toTop");
+                    span.style.background = getRandomColor();
+                })
+            document.querySelector(".table").appendChild(span)
+            }
+        }
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>
