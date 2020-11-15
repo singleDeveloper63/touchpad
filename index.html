@@ -65,7 +65,7 @@
         for(let i=0;i<rows;i++){
             for(let j=0;j<cols;j++){
                 const span = document.createElement("span");
-                span.addEventListener("mousemove", e =>{
+                span.addEventListener("mouseenter", e =>{
                     span.style.boxShadow = `0px 0px 5px ${getRandomColor()} , 0px 0px 10px ${getRandomColor()}`;
                     ring.currentTime = 1;
                     setTimeout(()=>{
